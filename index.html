@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不動産実務特化型・AIメール作成アシスタント</title>
+    <!-- CSSとJavaScriptを外部ファイルから読み込む -->
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+    <h1>🏠 不動産実務 AIメールアシスタント <span id="dbStatus">マスタ未読込（CSVをD&D可）</span></h1>
+    
+    <div class="grid">
+        <div class="form-group">
+            <label for="clientSelect">送り先（顧客・業者・オーナー）</label>
+            <select id="clientSelect" onchange="onClientChange()">
+                <option value="">-- CSVを読み込んでください --</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="clientEmail">送信先メールアドレス</label>
+            <input type="text" id="clientEmail" readonly class="readonly-input">
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="form-group">
+            <label for="categorySelect">大分類（宛先属性）</label>
+            <select id="categorySelect" onchange="onCategoryChange()"></select>
+        </div>
+        <div class="form-group">
+            <label for="subPurposeSelect">小分類（具体的な用件）</label>
+            <select id="subPurposeSelect"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="customDetail">具体的な指示・状況の補足（自由入力）</label>
+        <input type="text" id="customDetail" placeholder="例：来週水曜日の15時、キッチンからの水漏れの件、等">
+    </div>
+
+    <button id="genBtn" class="btn-generate" onclick="generateMailBody()">1. AI文章を生成する（中継サーバー経由）</button>
+    
+    <div id="statusMessage" class="status">CSVの自動読み込みを試みています...</div>
+
+    <div class="form-group">
+        <label for="resultPreview">生成されたメール（送信前にここで最終手動修正が可能です）</label>
+        <textarea id="resultPreview" rows="12" placeholder="ここにメール文章が生成されます..."></textarea>
+    </div>
+
+    <button class="btn-mail" onclick="launchMailClient()">2. 確認してメールソフトを起動</button>
+</div>
+
+</body>
+</html>
